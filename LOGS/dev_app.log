@@ -1,0 +1,9 @@
+2024-03-24 14:34:37 [Test worker] INFO  c.a.VacantionPayCalcApplicationTests - Starting VacantionPayCalcApplicationTests using Java 17.0.9 with PID 5320 (started by belfe in D:\Users\Desktop\project_java\vacantion_pay_calc)
+2024-03-24 14:34:37 [Test worker] INFO  c.a.VacantionPayCalcApplicationTests - No active profile set, falling back to 1 default profile: "default"
+2024-03-24 14:34:37 [Test worker] DEBUG o.s.w.c.s.GenericWebApplicationContext - Refreshing org.springframework.web.context.support.GenericWebApplicationContext@2b8d084
+2024-03-24 14:34:41 [Test worker] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 2 mappings in 'requestMappingHandlerMapping'
+2024-03-24 14:34:41 [Test worker] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-03-24 14:34:41 [Test worker] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-03-24 14:34:41 [Test worker] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-03-24 14:34:41 [Test worker] INFO  c.a.VacantionPayCalcApplicationTests - Started VacantionPayCalcApplicationTests in 5.239 seconds (process running for 8.471)
+2024-03-24 14:34:44 [SpringApplicationShutdownHook] DEBUG o.s.w.c.s.GenericWebApplicationContext - Closing org.springframework.web.context.support.GenericWebApplicationContext@2b8d084, started on Sun Mar 24 14:34:37 VLAT 2024
