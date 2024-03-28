@@ -36,11 +36,21 @@ class DateServicesTest {
     @Test
     void countWorkDays_validHolidaysOneYear() {
 
-        LocalDate start = LocalDate.of(currentYear, 1,1);
-        LocalDate end = start.plusYears(1);
-        int holidays = start.lengthOfYear() - dateServices.countWorkDays(start, end, true);
+        LocalDate start = LocalDate.of(2024, 1,1);
+        LocalDate end = LocalDate.of(2024, 12,31);;
+        int holidays = dateServices.countHolidays(start, end);
         assertEquals(14, holidays);
     }
+
+    @Test
+    void countWorkDays_validWeekendDaysOneMonth() {
+
+        LocalDate start = LocalDate.of(2024, 1,1);
+        LocalDate end = LocalDate.of(2024, 1,31);;
+        int holidays = dateServices.countWeekendDays(start, end);
+        assertEquals(14, holidays);
+    }
+
 
     @Test
     void countWorkDays_validDateOneMoth() {
