@@ -1,6 +1,6 @@
 spring:
   application:
-    name: vacantion_pay_calc
+    name: vacation_pay_calc
 server:
   port: 8989
 logging:
@@ -12,3 +12,23 @@ logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+vacation:
+  averageCalendarDaysPerMonth: "29.3"
+  personalIncomeTaxRate: "0.13"
+  precision: 3
+holidays:
+  days:
+    - "01.01"
+    - "02.01"
+    - "03.01"
+    - "04.01"
+    - "05.01"
+    - "06.01"
+    - "07.01"
+    - "08.01"
+    - "23.02"
+    - "08.03"
+    - "01.05"
+    - "09.05"
+    - "12.06"
+    - "04.11"
