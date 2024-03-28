@@ -34,6 +34,24 @@ class DateServicesTest {
     }
 
     @Test
+    void countDays_validDateIsMonth() {
+
+        LocalDate start = LocalDate.of(2024, 2,1);
+        LocalDate end = LocalDate.of(2024, 2, 29);
+        int workDate = dateServices.countDays(start, end);
+        assertEquals(29, workDate);
+    }
+
+    @Test
+    void countDays_validDateIsYears() {
+
+        LocalDate start = LocalDate.of(2024, 1,1);
+        LocalDate end = LocalDate.of(2024, 12, 31);
+        int workDate = dateServices.countDays(start, end);
+        assertEquals(366, workDate);
+    }
+
+    @Test
     void countWorkDays_validHolidaysOneYear() {
 
         LocalDate start = LocalDate.of(2024, 1,1);

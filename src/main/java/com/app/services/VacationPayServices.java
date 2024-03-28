@@ -31,44 +31,56 @@ public class VacationPayServices {
         this.dateServices = dateServices;
     }
 
-    public BigDecimal calcVacationPay(@NonNull BigDecimal vacationDays, @NonNull BigDecimal mediumSalary) {
+    public BigDecimal calcVacationPay(@NonNull String averageMonthlyEarnings,
+                                      @NonNull String start,
+                                      @NonNull String end) {
 
-        if (invalidData(vacationDays, mediumSalary)) {
+        return calcVacationPay(
+                new BigDecimal(averageMonthlyEarnings),
+                LocalDate.parse(start),
+                LocalDate.parse(end));
+    }
+
+    public BigDecimal calcVacationPay(@NonNull String vacationDays, @NonNull String averageMonthlyEarnings) {
+
+        return calcVacationPay(
+                new BigDecimal(vacationDays),
+                new BigDecimal(averageMonthlyEarnings));
+    }
+
+    public BigDecimal calcVacationPay(@NonNull BigDecimal vacationDays, @NonNull BigDecimal averageMonthlyEarnings) {
+
+        if (invalidData(vacationDays, averageMonthlyEarnings)) {
             return BigDecimal.ZERO;
         }
 
-        return mediumSalary
+        return averageMonthlyEarnings
                 .divide(vacationConfig.getAverageCalendarDaysPerMonth(), MathContext.DECIMAL64)
                 .multiply(vacationDays)
                 .setScale(vacationConfig.getPrecision(), RoundingMode.CEILING);
     }
 
-    public BigDecimal calcVacationPay(@NonNull BigDecimal vacationDays,
-                                      @NonNull BigDecimal mediumSalary,
+
+    public BigDecimal calcVacationPay(@NonNull BigDecimal averageMonthlyEarnings,
                                       @NonNull LocalDate start,
                                       @NonNull LocalDate end) {
 
-        if (invalidData(vacationDays, mediumSalary)) {
-            return BigDecimal.ZERO;
-        }
-
-        int workDays = dateServices.countWorkDays(start.minusYears(1).minusDays(1), start, true);
+        int holidays = dateServices.countHolidays(start, end);
         int actualDays = dateServices.countWorkDays(start, end, true);
 
-        return mediumSalary
-                .multiply(new BigDecimal(12))
-                .divide(new BigDecimal(workDays), MathContext.DECIMAL64)
-                .multiply(new BigDecimal(actualDays))
-                .setScale(vacationConfig.getPrecision(), RoundingMode.CEILING);
-    }
-
-    private boolean invalidData(BigDecimal vacationDays, BigDecimal mediumSalary) {
-
-        if (vacationDays.equals(BigDecimal.ZERO) || mediumSalary.equals(BigDecimal.ZERO)) {
-            log.error("Vacation days or medium salary is zero");
-            return true;
+        if (holidays > 0) {
+            log.error("{} holiday(s) falls on vacation", holidays);
         }
 
+        return calcVacationPay(new BigDecimal(actualDays), averageMonthlyEarnings);
+    }
+
+    private boolean invalidData(BigDecimal vacationDays, BigDecimal averageMonthlyEarnings) {
+
+        if (vacationDays.equals(BigDecimal.ZERO) || averageMonthlyEarnings.equals(BigDecimal.ZERO)) {
+            log.error("Vacation days or average monthly earnings is zero");
+            return true;
+        }
         return false;
     }
 }

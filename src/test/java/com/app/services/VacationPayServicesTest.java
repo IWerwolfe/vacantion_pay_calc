@@ -50,13 +50,25 @@ class VacationPayServicesTest {
 
     @Test
     void calcVacationPayInPeriod_isCorrect() {
-        BigDecimal days = new BigDecimal(14);
+
         BigDecimal mediumSalary = new BigDecimal(50000);
         LocalDate start = LocalDate.of(2024, 6, 1);
         LocalDate end = LocalDate.of(2024, 6, 14);
 
-        BigDecimal result = payServices.calcVacationPay(days, mediumSalary, start, end);
+        BigDecimal result = payServices.calcVacationPay(mediumSalary, start, end);
 
-        assertEquals(result, new BigDecimal("23890.785"));
+        assertEquals(result, new BigDecimal("22184.301"));
+    }
+
+    @Test
+    void calcVacationPayInPeriod_isCorrect1() {
+
+        BigDecimal mediumSalary = new BigDecimal(50000);
+        LocalDate start = LocalDate.of(2024, 1, 9);
+        LocalDate end = LocalDate.of(2024, 1, 29);
+
+        BigDecimal result = payServices.calcVacationPay(mediumSalary, start, end);
+
+        assertEquals(result, new BigDecimal("35836.178"));
     }
 }

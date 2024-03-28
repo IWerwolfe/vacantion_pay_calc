@@ -2,7 +2,7 @@ spring:
   application:
     name: vacation_pay_calc
 server:
-  port: 8989
+  port: 8080
 logging:
   level: DEBUG
   level.org.springframework.web: DEBUG

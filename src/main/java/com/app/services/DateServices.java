@@ -9,10 +9,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Slf4j(topic = "Date services")
 @Service
@@ -39,6 +40,10 @@ public class DateServices {
             date = date.plusDays(1);
         }
         return countDays;
+    }
+
+    public int countDays(LocalDate start, LocalDate end) {
+        return countDays(start, end, Predicate -> true);
     }
 
     public int countWorkDays(LocalDate start, LocalDate end, boolean onlyHoliday) {
