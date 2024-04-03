@@ -41,6 +41,19 @@ public class VacationPayServices {
                 LocalDate.parse(end));
     }
 
+    public BigDecimal calcVacationPay(@NonNull String averageMonthlyEarnings,
+                                      @NonNull String start,
+                                      @NonNull String end,
+                                      boolean withTax) {
+
+
+        return calcVacationPay(
+                new BigDecimal(averageMonthlyEarnings),
+                LocalDate.parse(start),
+                LocalDate.parse(end),
+                withTax);
+    }
+
     public BigDecimal calcVacationPay(@NonNull String vacationDays, @NonNull String averageMonthlyEarnings) {
 
         return calcVacationPay(
@@ -48,22 +61,49 @@ public class VacationPayServices {
                 new BigDecimal(averageMonthlyEarnings));
     }
 
+    public BigDecimal calcVacationPay(@NonNull String vacationDays, @NonNull String averageMonthlyEarnings, boolean withTax) {
+
+        return calcVacationPay(
+                new BigDecimal(vacationDays),
+                new BigDecimal(averageMonthlyEarnings),
+                withTax);
+    }
+
     public BigDecimal calcVacationPay(@NonNull BigDecimal vacationDays, @NonNull BigDecimal averageMonthlyEarnings) {
+        return calcVacationPay(vacationDays, averageMonthlyEarnings, false);
+    }
+
+    public BigDecimal calcVacationPay(@NonNull BigDecimal vacationDays, @NonNull BigDecimal averageMonthlyEarnings, boolean withTax) {
 
         if (invalidData(vacationDays, averageMonthlyEarnings)) {
             return BigDecimal.ZERO;
         }
 
-        return averageMonthlyEarnings
+        BigDecimal result = averageMonthlyEarnings
                 .divide(vacationConfig.getAverageCalendarDaysPerMonth(), MathContext.DECIMAL64)
-                .multiply(vacationDays)
+                .multiply(vacationDays);
+
+        if (withTax) {
+            BigDecimal tax = result.multiply(vacationConfig.getPersonalIncomeTaxRate());
+            return result
+                    .subtract(tax)
+                    .setScale(vacationConfig.getPrecision(), RoundingMode.CEILING);
+        }
+        return result
                 .setScale(vacationConfig.getPrecision(), RoundingMode.CEILING);
     }
-
 
     public BigDecimal calcVacationPay(@NonNull BigDecimal averageMonthlyEarnings,
                                       @NonNull LocalDate start,
                                       @NonNull LocalDate end) {
+
+        return calcVacationPay(averageMonthlyEarnings, start, end, false);
+    }
+
+    public BigDecimal calcVacationPay(@NonNull BigDecimal averageMonthlyEarnings,
+                                      @NonNull LocalDate start,
+                                      @NonNull LocalDate end,
+                                      boolean withTax) {
 
         int holidays = dateServices.countHolidays(start, end);
         int actualDays = dateServices.countWorkDays(start, end, true);
@@ -72,7 +112,7 @@ public class VacationPayServices {
             log.error("{} holiday(s) falls on vacation", holidays);
         }
 
-        return calcVacationPay(new BigDecimal(actualDays), averageMonthlyEarnings);
+        return calcVacationPay(new BigDecimal(actualDays), averageMonthlyEarnings, withTax);
     }
 
     private boolean invalidData(BigDecimal vacationDays, BigDecimal averageMonthlyEarnings) {

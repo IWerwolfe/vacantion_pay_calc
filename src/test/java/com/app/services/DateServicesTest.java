@@ -27,7 +27,7 @@ class DateServicesTest {
     @Test
     void countWorkDays_invalidDate() {
 
-        LocalDate start = LocalDate.of(1900, 1,1);
+        LocalDate start = LocalDate.of(1900, 1, 1);
         LocalDate end = LocalDate.of(1, 1, 1);
         int workDate = dateServices.countWorkDays(start, end);
         assertEquals(0, workDate);
@@ -36,7 +36,7 @@ class DateServicesTest {
     @Test
     void countDays_validDateIsMonth() {
 
-        LocalDate start = LocalDate.of(2024, 2,1);
+        LocalDate start = LocalDate.of(2024, 2, 1);
         LocalDate end = LocalDate.of(2024, 2, 29);
         int workDate = dateServices.countDays(start, end);
         assertEquals(29, workDate);
@@ -45,7 +45,7 @@ class DateServicesTest {
     @Test
     void countDays_validDateIsYears() {
 
-        LocalDate start = LocalDate.of(2024, 1,1);
+        LocalDate start = LocalDate.of(2024, 1, 1);
         LocalDate end = LocalDate.of(2024, 12, 31);
         int workDate = dateServices.countDays(start, end);
         assertEquals(366, workDate);
@@ -54,8 +54,9 @@ class DateServicesTest {
     @Test
     void countWorkDays_validHolidaysOneYear() {
 
-        LocalDate start = LocalDate.of(2024, 1,1);
-        LocalDate end = LocalDate.of(2024, 12,31);;
+        LocalDate start = LocalDate.of(2024, 1, 1);
+        LocalDate end = LocalDate.of(2024, 12, 31);
+        ;
         int holidays = dateServices.countHolidays(start, end);
         assertEquals(14, holidays);
     }
@@ -63,8 +64,9 @@ class DateServicesTest {
     @Test
     void countWorkDays_validWeekendDaysOneMonth() {
 
-        LocalDate start = LocalDate.of(2024, 1,1);
-        LocalDate end = LocalDate.of(2024, 1,31);;
+        LocalDate start = LocalDate.of(2024, 1, 1);
+        LocalDate end = LocalDate.of(2024, 1, 31);
+        ;
         int holidays = dateServices.countWeekendDays(start, end);
         assertEquals(14, holidays);
     }
@@ -73,7 +75,7 @@ class DateServicesTest {
     @Test
     void countWorkDays_validDateOneMoth() {
 
-        LocalDate start = LocalDate.of(currentYear, 1,1);
+        LocalDate start = LocalDate.of(currentYear, 1, 1);
         LocalDate end = LocalDate.of(currentYear, 1, 31);
         int workDate = dateServices.countWorkDays(start, end);
         assertEquals(17, workDate);
@@ -82,7 +84,7 @@ class DateServicesTest {
     @Test
     void countWorkDays_validDateOneMothOnlyHolidays() {
 
-        LocalDate start = LocalDate.of(currentYear, 1,1);
+        LocalDate start = LocalDate.of(currentYear, 1, 1);
         LocalDate end = LocalDate.of(currentYear, 1, 31);
         int workDate = dateServices.countWorkDays(start, end, true);
         assertEquals(23, workDate);
@@ -91,8 +93,8 @@ class DateServicesTest {
     @Test
     void isHoliday_validDate() {
 
-        LocalDate date = LocalDate.of(currentYear, 1,3);
-        LocalDate date1 = LocalDate.of(currentYear, 5,9);
+        LocalDate date = LocalDate.of(currentYear, 1, 3);
+        LocalDate date1 = LocalDate.of(currentYear, 5, 9);
 
         boolean isHoliday1 = dateServices.isHoliday(date);
         boolean isHoliday2 = dateServices.isHoliday(date1);
@@ -104,8 +106,8 @@ class DateServicesTest {
     @Test
     void isHoliday_invalidDate() {
 
-        LocalDate date = LocalDate.of(currentYear, 1,30);
-        LocalDate date1 = LocalDate.of(currentYear, 3,25);
+        LocalDate date = LocalDate.of(currentYear, 1, 30);
+        LocalDate date1 = LocalDate.of(currentYear, 3, 25);
 
         boolean isHoliday1 = dateServices.isHoliday(date);
         boolean isHoliday2 = dateServices.isHoliday(date1);
@@ -117,8 +119,8 @@ class DateServicesTest {
     @Test
     void isWeekend_validDate() {
 
-        LocalDate date = LocalDate.of(currentYear, 5,9);
-        LocalDate date1 = LocalDate.of(currentYear, 3,30);
+        LocalDate date = LocalDate.of(currentYear, 5, 9);
+        LocalDate date1 = LocalDate.of(currentYear, 3, 30);
 
         boolean isHoliday1 = dateServices.isWeekend(date);
         boolean isHoliday2 = dateServices.isWeekend(date1);
@@ -130,8 +132,8 @@ class DateServicesTest {
     @Test
     void isWeekend_invalidDate() {
 
-        LocalDate date = LocalDate.of(currentYear, 1,30);
-        LocalDate date1 = LocalDate.of(currentYear, 3,25);
+        LocalDate date = LocalDate.of(currentYear, 1, 30);
+        LocalDate date1 = LocalDate.of(currentYear, 3, 25);
 
         boolean isHoliday1 = dateServices.isWeekend(date);
         boolean isHoliday2 = dateServices.isWeekend(date1);
